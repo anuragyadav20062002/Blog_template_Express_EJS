@@ -18,16 +18,38 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
 
+//home page
+
 app.get("/", (req, res) => {
   res.render("home", { hometext: homeStartingContent })
 })
+
+//about page
+
 app.get("/about", (req, res) => {
   res.render("about", { abouttext: aboutContent })
 })
+
+//contact page
+
 app.get("/contact", (req, res) => {
   res.render("contact", { contacttext: contactContent })
 })
 
+//compose page
+
+app.get("/compose", (req, res) => {
+  res.render("compose")
+})
+
+//post request
+
+app.post("/compose", (req, res) => {
+  const inputvalue = req.body.input
+  console.log(inputvalue)
+})
+
+//listening
 app.listen(3000, function () {
   console.log("Server started on port 3000")
 })
