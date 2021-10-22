@@ -18,10 +18,13 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
 
-//home page
+var posts = []
+
+/////////////home page////////////////
 
 app.get("/", (req, res) => {
   res.render("home", { hometext: homeStartingContent })
+  console.log(posts)
 })
 
 //about page
@@ -45,8 +48,17 @@ app.get("/compose", (req, res) => {
 //post request
 
 app.post("/compose", (req, res) => {
-  const inputvalue = req.body.input
-  console.log(inputvalue)
+  const blogtitle = req.body.posttitle
+  const blogcontent = req.body.postbody
+
+  const post = {
+    title: blogtitle,
+    body: blogcontent,
+  }
+
+  posts.push(post)
+
+  res.redirect("/")
 })
 
 //listening
