@@ -23,8 +23,10 @@ var posts = []
 /////////////home page////////////////
 
 app.get("/", (req, res) => {
-  res.render("home", { hometext: homeStartingContent })
-  console.log(posts)
+  res.render("home", {
+    hometext: homeStartingContent,
+    posts: posts,
+  })
 })
 
 //about page
