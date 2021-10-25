@@ -22,6 +22,13 @@ app.use(express.static("public"))
 
 mongoose.connect("mongodb://localhost:27017/blogDB", { useNewUrlParser: true })
 
+const postschema = {
+  title: String,
+  content: String,
+}
+
+const Post = mongoose.model("Post", postschema)
+
 var posts = []
 
 /////////////home page////////////////
@@ -57,12 +64,13 @@ app.post("/compose", (req, res) => {
   const blogtitle = req.body.posttitle
   const blogcontent = req.body.postbody
 
-  const post = {
-    title: blogtitle,
-    body: blogcontent,
-  }
+  const post = new Post({
+    title: req.body.posttitle,
 
-  posts.push(post)
+    content: req.body.postbody,
+  })
+
+  post.save()
 
   res.redirect("/")
 })
